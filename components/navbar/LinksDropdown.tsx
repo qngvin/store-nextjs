@@ -12,7 +12,9 @@ import Link from "next/link";
 import UserIcon from "./UserIcon";
 import { SignedIn, SignedOut, SignInButton, SignUpButton } from "@clerk/nextjs";
 import SignOutLink from "./SignOutLink";
-const LinksDropdown = () => {
+import { auth } from "@clerk/nextjs/server";
+const LinksDropdown = async () => {
+  const isAdmin = (await auth()).userId === process.env.ADMIN_USER_ID;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -36,13 +38,16 @@ const LinksDropdown = () => {
           </DropdownMenuItem>
         </SignedOut>
         <SignedIn>
-          {links.map((link) => (
-            <DropdownMenuItem key={link.href}>
-              <Link href={link.href} className=" capitalize w-full ">
-                {link.label}
-              </Link>
-            </DropdownMenuItem>
-          ))}
+          {links.map((link) => {
+            if (link.label === "dashboard" && !isAdmin) return null;
+            return (
+              <DropdownMenuItem key={link.href}>
+                <Link href={link.href} className=" capitalize w-full ">
+                  {link.label}
+                </Link>
+              </DropdownMenuItem>
+            );
+          })}
           <DropdownMenuSeparator />
           <DropdownMenuItem>
             <SignOutLink />
