@@ -6,7 +6,7 @@ import {
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
 import { LuAlignLeft } from "react-icons/lu";
-import { links } from "@/app/utils/links";
+import { links } from "@/utils/links";
 import Link from "next/link";
 const LinksDropdown = () => {
   return (
