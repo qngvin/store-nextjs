@@ -8,7 +8,8 @@ import Image from "next/image";
 import React from "react";
 
 const SingleProductPage = async ({ params }: { params: { id: string } }) => {
-  const product = await fetchSignleProduct(params.id);
+  const paramsId = await params;
+  const product = await fetchSignleProduct(paramsId.id);
   return (
     <section>
       <BreadCrumbs name={product.name} />
