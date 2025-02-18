@@ -4,6 +4,7 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
+  BreadcrumbPage,
   BreadcrumbSeparator,
 } from "../ui/breadcrumb";
 
@@ -18,15 +19,13 @@ const BreadCrumbs = ({ name }: { name: string }) => {
         </BreadcrumbItem>
         <BreadcrumbSeparator />{" "}
         <BreadcrumbItem>
-          <BreadcrumbLink href="/" className="capitalize text-lg">
+          <BreadcrumbLink href="/products" className="capitalize text-lg">
             Products
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href="/" className="capitalize text-lg">
-            {name}
-          </BreadcrumbLink>
+          <BreadcrumbPage className="capitalize text-lg">{name}</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>{" "}
     </Breadcrumb>
