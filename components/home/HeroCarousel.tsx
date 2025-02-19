@@ -14,7 +14,6 @@ import { Card } from "../ui/card";
 import Image from "next/image";
 const carouselImages = [hero1, hero2, hero3, hero4];
 const HeroCarousel = () => {
-  console.log("tes", carouselImages);
   return (
     <div className="hidden lg:block">
       <Carousel opts={{ loop: true }}>

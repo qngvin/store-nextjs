@@ -14,6 +14,7 @@ const PriceInput = ({ defaultValue }: FormInputNumberProps) => {
         Price ($)
       </Label>
       <Input
+        name={name}
         id={name}
         type="number"
         min={0}

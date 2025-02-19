@@ -1,9 +1,13 @@
 import FavoriteToggleButton from "@/components/products/FavoriteToggleButton";
+import ProductReviews from "@/components/reviews/ProductReviews";
+import SubmitReview from "@/components/reviews/SubmitReview";
 import AddToCart from "@/components/single-products/AddToCart";
 import BreadCrumbs from "@/components/single-products/BreadCrumbs";
 import ProductRating from "@/components/single-products/ProductRating";
-import { fetchSignleProduct } from "@/utils/actions";
+import ShareButton from "@/components/single-products/ShareButton";
+import { fetchSignleProduct, findExistingReview } from "@/utils/actions";
 import { formatCurrency } from "@/utils/format";
+import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import React from "react";
 
@@ -14,6 +18,10 @@ const SingleProductPage = async ({
 }) => {
   const paramsId = await params;
   const product = await fetchSignleProduct(paramsId.id);
+  const { userId } = await auth();
+  const reviewDoesNotExist =
+    userId && !(await findExistingReview(userId, paramsId.id));
+
   return (
     <section>
       <BreadCrumbs name={product.name} />
@@ -32,6 +40,7 @@ const SingleProductPage = async ({
           <div className="flex gap-x-8 items-center">
             <h1 className="capitalize text-3xl font-bold ">{product.name}</h1>
             <FavoriteToggleButton productId={product.id} />
+            <ShareButton productId={product.id} name={product.name} />
           </div>
           <ProductRating productId={product.id} />
           <h4 className="text-xl mt-2">{product.company}</h4>
@@ -44,6 +53,8 @@ const SingleProductPage = async ({
           <AddToCart productId={product.id} />
         </div>
       </div>
+      <ProductReviews productId={product.id} />
+      {reviewDoesNotExist && <SubmitReview productId={paramsId.id} />}
     </section>
   );
 };
