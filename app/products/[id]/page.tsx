@@ -11,16 +11,14 @@ import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import React from "react";
 
-const SingleProductPage = async ({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) => {
-  const paramsId = await params;
-  const product = await fetchSignleProduct(paramsId.id);
+// Đảm bảo params được awaited trước khi sử dụng
+const SingleProductPage = async ({ params }: { params: { id: string } }) => {
+  // Chờ params được giải quyết trước khi truy cập
+  const { id } = await params; // Await params để lấy giá trị thực
+
+  const product = await fetchSignleProduct(id);
   const { userId } = await auth();
-  const reviewDoesNotExist =
-    userId && !(await findExistingReview(userId, paramsId.id));
+  const reviewDoesNotExist = userId && !(await findExistingReview(userId, id));
 
   return (
     <section>
@@ -54,7 +52,7 @@ const SingleProductPage = async ({
         </div>
       </div>
       <ProductReviews productId={product.id} />
-      {reviewDoesNotExist && <SubmitReview productId={paramsId.id} />}
+      {reviewDoesNotExist && <SubmitReview productId={id} />}
     </section>
   );
 };
