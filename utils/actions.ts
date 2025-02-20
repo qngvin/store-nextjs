@@ -469,6 +469,8 @@ export const createOrderAction = async (prevState: any, formData: FormData) => {
   } catch (error) {
     return renderError(error);
   }
+  console.log("orderId", orderId);
+  console.log("cartId", cartId);
   redirect(`/checkout?orderId=${orderId}&cartId=${cartId}`);
 };
 export const removeCartItemAction = async (
