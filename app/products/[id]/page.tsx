@@ -11,10 +11,9 @@ import ShareButton from "@/components/single-products/ShareButton";
 import ProductRating from "@/components/single-products/ProductRating";
 import AddToCart from "@/components/single-products/AddToCart";
 
-type Props = Promise<{ id: string }>;
-
-async function SingleProductPage(props: { params: Props }) {
-  const { id } = await props.params;
+async function SingleProductPage(props: { params: Promise<{ id: string }> }) {
+  const { params } = props;
+  const { id } = await params;
   const product = await fetchSignleProduct(id);
   const { name, image, company, description, price } = product;
   const dollarsAmount = formatCurrency(price);

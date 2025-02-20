@@ -11,7 +11,6 @@ import { useToast } from "@/hooks/use-toast";
 
 const ThirdColumn = ({ quantity, id }: { quantity: number; id: string }) => {
   const [amout, setAmount] = useState(quantity);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const handleAmountChange = async (value: number) => {
