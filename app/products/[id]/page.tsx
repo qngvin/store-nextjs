@@ -10,10 +10,11 @@ import BreadCrumbs from "@/components/single-products/BreadCrumbs";
 import ShareButton from "@/components/single-products/ShareButton";
 import ProductRating from "@/components/single-products/ProductRating";
 import AddToCart from "@/components/single-products/AddToCart";
+type Params = Promise<{ id: string }>;
 
-async function SingleProductPage(props: { params: Promise<{ id: string }> }) {
-  const { params } = props;
-  const { id } = await params;
+async function SingleProductPage(props: { params: Params }) {
+  const params = await props.params;
+  const id = params.id;
   const product = await fetchSignleProduct(id);
   const { name, image, company, description, price } = product;
   const dollarsAmount = formatCurrency(price);
