@@ -11,9 +11,10 @@ import {
   updateProductImageAction,
 } from "@/utils/actions";
 import React from "react";
-
-const EditeProductPage = async ({ params }: { params: { id: string } }) => {
-  const { id } = await params;
+type Params = Promise<{ id: string }>;
+const EditeProductPage = async (props: { params: Params }) => {
+  const params = await props.params;
+  const id = params.id;
   const product = await fetchAdminProductDetail(id);
 
   return (
